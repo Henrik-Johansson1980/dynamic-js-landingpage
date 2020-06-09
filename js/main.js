@@ -26,7 +26,9 @@ const showTime = () => {
 
 // Set Background and Greeting BG-image is loaded in from unsplash.
 const setBackgroundAndGreetBasedOnTime = () => {
-	const now = new Date();
+    
+	const now = new Date(2019, 06 , 10 , 17, 33 , 30);
+	// const now = new Date();
 	hours = now.getHours();
 
 	if (hours < 12) {
@@ -36,12 +38,12 @@ const setBackgroundAndGreetBasedOnTime = () => {
 		return;
 	} else if (hours < 18) {
 		document.body.style.background =
-			"url('https://source.unsplash.com/featured/1600x900/?afternoon') no-repeat center center/cover";
+			"url('https://source.unsplash.com/featured/1600x900/?afternoon,nature') no-repeat center center/cover";
 		greeting.innerHTML = "Good Afternoon ";
 		return;
 	} else {
 		document.body.style.background =
-			"url('https://source.unsplash.com/featured/1600x900/?evening,night') no-repeat center center/cover";
+			"url('https://source.unsplash.com/featured/1600x900/?evening,night,nature') no-repeat center center/cover";
 		greeting.innerHTML = "Good Evening ";
 	}
 };
@@ -63,6 +65,32 @@ const getFocus = () => {
 		focus.textContent = localStorage.getItem('focus');
 	}
 };
+
+const setName = (e) => {
+    if(e.type === 'keypress'){
+        if( e.key === 'Enter' || e.keyCode == 13 ) {
+            localStorage.setItem('name', e.target.textContent)
+            name.blur(); //Prevent newline
+        }
+    } else {
+        localStorage.setItem('name', e.target.textContent)
+    }
+}
+const setFocus = (e) => {
+    if(e.type === 'keypress'){
+        if( e.key === 'Enter' || e.keyCode == 13) {
+            localStorage.setItem('focus', e.target.textContent);
+            focus.blur(); //Prevent newline
+        }
+    } else {
+        localStorage.setItem('focus', e.target.textContent)
+    }
+}
+
+name.addEventListener('keypress', setName);
+name.addEventListener('blur', setName); // User clicks outside of field.
+focus.addEventListener('keypress', setFocus);
+focus.addEventListener('blur', setFocus); // User clicks outside of field.
 
 // Run
 showTime();
